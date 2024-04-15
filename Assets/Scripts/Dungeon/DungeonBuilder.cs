@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Tilemaps;
 
 [DisallowMultipleComponent]
 public class DungeonBuilder : Singleton<DungeonBuilder>
@@ -447,7 +448,22 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
     private void InstantiateRoomGameObjs()
     {
+        foreach(KeyValuePair<string, Room> keyvaluepair in dungeonBuilderRoomDictionary)
+        {
+            Room room = keyvaluepair.Value;
 
+            Vector3 roomPosition = new Vector3(room.lowerBounds.x - room.templateLowerBounds.x, room.lowerBounds.y - room.templateLowerBounds.y, 0f);
+
+            GameObject roomGameobj = Instantiate(room.prefab, roomPosition, Quaternion.identity, transform);
+
+            InstantiatedRoom instantiatedRoom = roomGameobj.GetComponentInChildren<InstantiatedRoom>();
+
+            instantiatedRoom.room = room;
+
+            instantiatedRoom.Initialize(roomGameobj);
+
+            room.instantiatedRoom = instantiatedRoom;
+        }
     }
 
     public RoomTemplateSO GetRoomTemplate(string roomTemplateID)
