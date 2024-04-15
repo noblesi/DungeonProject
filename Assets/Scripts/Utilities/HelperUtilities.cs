@@ -19,6 +19,12 @@ public static class HelperUtilities
         bool error = false;
         int count = 0;
 
+        if(enumerableObjectToCheck == null)
+        {
+            Debug.Log(fieldName + "NULL 값이 있습니다." + thisObj.name.ToString());
+            return true;
+        }
+
         foreach(var item in enumerableObjectToCheck)
         {
             if (item == null)
