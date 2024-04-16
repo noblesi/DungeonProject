@@ -35,17 +35,20 @@ public class PlayerControl : MonoBehaviour
 
         Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
 
-        if(horizontalMovement != 0f && verticalMovement != 0f)
+        if (horizontalMovement != 0f && verticalMovement != 0f)
         {
             direction *= 0.7f;
         }
 
-        if(direction != Vector2.zero)
+        if (direction != Vector2.zero)
         {
             player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
         }
-
-        player.idleEvent.CallIdleEvent();
+        else
+        {
+            player.idleEvent.CallIdleEvent();
+        }
+        
     }
 
     private void WeaponInput()

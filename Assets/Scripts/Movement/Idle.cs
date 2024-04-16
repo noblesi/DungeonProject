@@ -32,8 +32,8 @@ public class Idle : MonoBehaviour
         MoveRigidBody();
     }
 
-    public void MoveRigidBody()
+    private void MoveRigidBody()
     {
-        rigidbody2D.velocity = Vector3.zero;
+        rigidbody2D.velocity = Vector2.zero;
     }
 }
