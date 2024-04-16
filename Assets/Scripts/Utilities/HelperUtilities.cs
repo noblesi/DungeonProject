@@ -4,6 +4,65 @@ using UnityEngine;
 
 public static class HelperUtilities
 {
+    public static Camera mainCamera;
+    public static Vector3 GetMouseWorldPosition()
+    {
+        if(mainCamera == null) mainCamera = Camera.main;
+
+        Vector3 mouseScreenPosition = Input.mousePosition;
+
+        mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0f, Screen.width);
+        mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0f, Screen.height);
+
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+
+        worldPosition.z = 0f;
+
+        return worldPosition;
+    }
+
+    public static float GetAngleFromVector(Vector3 vector)
+    {
+        float radians = Mathf.Atan2(vector.y, vector.x);
+
+        float degrees = radians * Mathf.Rad2Deg;
+
+        return degrees;
+    }
+
+    public static AimDirection GetAimDirection(float angleDegrees)
+    {
+        AimDirection aimDirection;
+
+        if (angleDegrees >= 22f && angleDegrees <= 67f)
+        {
+            aimDirection = AimDirection.UpRight;
+        }
+        else if (angleDegrees > 67f && angleDegrees <= 112f)
+        {
+            aimDirection = AimDirection.Up;
+        }
+        else if (angleDegrees > 112f && angleDegrees <= 158f)
+        {
+            aimDirection = AimDirection.UpLeft;
+        }
+        else if ((angleDegrees <= 180f && angleDegrees > 158f) || (angleDegrees > -180f && angleDegrees <= -135f))
+        {
+            aimDirection = AimDirection.Left;
+        }
+        else if (angleDegrees > -135f && angleDegrees <= -45f)
+        {
+            aimDirection = AimDirection.Down;
+        }
+        else if ((angleDegrees <= 0f && angleDegrees > -45f) || (angleDegrees > 0f && angleDegrees < 22f))
+        {
+            aimDirection = AimDirection.Right;
+        }
+        else aimDirection = AimDirection.Right;
+
+        return aimDirection;
+    }
+
     public static bool ValidateCheckEmptyString(Object thisObj, string fieldName, string stringToCheck)
     {
         if(stringToCheck == "")
@@ -76,6 +135,47 @@ public static class HelperUtilities
                 error = true;
             }
         }
+
+        return error;
+    }
+
+    public static bool ValidateCheckPositiveValue(Object thisObj, string fieldName, float valueToCheck, bool isZeroAllowed)
+    {
+        bool error = false;
+
+        if (isZeroAllowed)
+        {
+            if (valueToCheck < 0)
+            {
+                Debug.Log(fieldName + "은(는) 반드시 양수 또는 0을 포함해야합니다." + thisObj.name.ToString());
+                error = true;
+            }
+        }
+        else
+        {
+            if (valueToCheck <= 0)
+            {
+                Debug.Log(fieldName + "은(는) 반드시 양수를 포함해야합니다." + thisObj.name.ToString());
+                error = true;
+            }
+        }
+
+        return error;
+    }
+
+    public static bool ValidateCheckPositiveRange(Object thisObj, string fieldNameMinimum, float valueToCheckMinimum, string fieldNameMaximum,
+        float valueToCheckMaximum, bool isZeroAllowed)
+    {
+        bool error = false;
+        if(valueToCheckMinimum > valueToCheckMaximum)
+        {
+            Debug.Log(fieldNameMaximum + "은(는) " + fieldNameMinimum + "보다 크거나 같아야합니다." + thisObj.name.ToString());
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObj, fieldNameMinimum, valueToCheckMinimum, isZeroAllowed)) error = true;
+
+        if (ValidateCheckPositiveValue(thisObj, fieldNameMaximum, valueToCheckMaximum, isZeroAllowed)) error = true;
 
         return error;
     }
