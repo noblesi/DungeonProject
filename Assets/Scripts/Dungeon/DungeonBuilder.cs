@@ -15,13 +15,21 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     private RoomNodeTypeListSO roomNodeTypeList;
     private bool dungeonBuildSuccessful;
 
+    private void OnEnable()
+    {
+        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 0f);
+    }
+
+    private void OnDisable()
+    {
+        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1f);
+    }
+
     protected override void Awake()
     {
         base.Awake();
 
         LoadRoomNodeTypeList();
-
-        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1f);
     }
 
     private void LoadRoomNodeTypeList()
@@ -150,7 +158,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         while(roomOverlaps)
         {
-            List<DoorWay> unconnectedAvailableParentDoorways = GetUnconnectedAvailable(parentRoom.doorWayList).ToList();
+            List<DoorWay> unconnectedAvailableParentDoorways = GetUnconnectedAvailableDoorways(parentRoom.doorWayList).ToList();
 
             if(unconnectedAvailableParentDoorways.Count == 0)
             {
@@ -245,6 +253,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 adjustment = new Vector2Int(1, 0);
                 break;
 
+            case Orientation.none:
+                break;
+
             default:
                 break;
         }
@@ -276,19 +287,19 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     {
         foreach(DoorWay doorwayToCheck in doorWayList)
         {
-            if(parentDoorway.orientation == Orientation.east && parentDoorway.orientation == Orientation.west)
+            if(parentDoorway.orientation == Orientation.east && doorwayToCheck.orientation == Orientation.west)
             {
                 return doorwayToCheck;
             }
-            else if(parentDoorway.orientation == Orientation.west && parentDoorway.orientation == Orientation.east)
+            else if(parentDoorway.orientation == Orientation.west && doorwayToCheck.orientation == Orientation.east)
             {
                 return doorwayToCheck;
             }
-            else if(parentDoorway.orientation == Orientation.north && parentDoorway.orientation == Orientation.south)
+            else if(parentDoorway.orientation == Orientation.north && doorwayToCheck.orientation == Orientation.south)
             {
                 return doorwayToCheck;
             }
-            else if(parentDoorway.orientation == Orientation.south && parentDoorway.orientation == Orientation.north)
+            else if(parentDoorway.orientation == Orientation.south && doorwayToCheck.orientation == Orientation.north)
             {
                 return doorwayToCheck;
             }
@@ -332,7 +343,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
     private bool IsOverlappingInterval(int imin1, int imax1, int imin2, int imax2)
     {
-        if(MathF.Max(imin1, imin2) <= MathF.Min(imax1, imax2))
+        if(Mathf.Max(imin1, imin2) <= Mathf.Min(imax1, imax2))
         {
             return true;
         }
@@ -360,7 +371,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         return matchingRoomTemplateList[Random.Range(0, matchingRoomTemplateList.Count)];
     }
 
-    private IEnumerable<DoorWay> GetUnconnectedAvailable(List<DoorWay> roomDoorWayList)
+    private IEnumerable<DoorWay> GetUnconnectedAvailableDoorways(List<DoorWay> roomDoorWayList)
     {
         foreach (DoorWay doorway in roomDoorWayList)
         {
@@ -390,6 +401,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         {
             room.parentRoomID = "";
             room.isPreviouslyVisited = true;
+
+            GameManager.Instance.SetCurrentRoom(room);
+
         }
         else
         {

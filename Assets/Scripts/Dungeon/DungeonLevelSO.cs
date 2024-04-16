@@ -60,6 +60,8 @@ public class DungeonLevelSO : ScriptableObject
 
             foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
             {
+                if (roomNode == null) continue;
+
                 if (roomNode.roomNodeType.isEntrance || roomNode.roomNodeType.isCorridorEW || roomNode.roomNodeType.isCorridorNS ||
                     roomNode.roomNodeType.isCorridor || roomNode.roomNodeType.isNone)
                     continue;
@@ -69,11 +71,11 @@ public class DungeonLevelSO : ScriptableObject
                 foreach(RoomTemplateSO roomTemplate in roomTemplateList)
                 {
                     if (roomTemplate == null)
-                        return;
+                        continue;
 
                     if(roomTemplate.roomNodeType == roomNode.roomNodeType)
                     {
-                        isRoomNodeTypeFound=true;
+                        isRoomNodeTypeFound = true;
                         break;
                     }
                 }

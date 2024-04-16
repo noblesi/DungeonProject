@@ -20,5 +20,7 @@ public class GameResources : MonoBehaviour
 
     public RoomNodeTypeListSO roomNodeTypeList;
 
+    public CurrentPlayerSO currentPlayer;
+
     public Material dimmedMaterial;
 }

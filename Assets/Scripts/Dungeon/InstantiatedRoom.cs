@@ -47,23 +47,23 @@ public class InstantiatedRoom : MonoBehaviour
             {
                 groundTilemap = tilemap;
             }
-            if(tilemap.gameObject.tag == "decoration1Tilemap")
+            else if(tilemap.gameObject.tag == "decoration1Tilemap")
             {
                 decoration1Tilemap = tilemap;
             }
-            if(tilemap.gameObject.tag == "decoration2Tilemap")
+            else if(tilemap.gameObject.tag == "decoration2Tilemap")
             {
                 decoration2Tilemap = tilemap;
             }
-            if(tilemap.gameObject.tag == "frontTilemap")
+            else if(tilemap.gameObject.tag == "frontTilemap")
             {
                 frontTilemap = tilemap;
             }
-            if(tilemap.gameObject.tag == "collisionTilemap")
+            else if(tilemap.gameObject.tag == "collisionTilemap")
             {
                 collisionTilemap = tilemap;
             }
-            if(tilemap.gameObject.tag == "minimapTilemap")
+            else if(tilemap.gameObject.tag == "minimapTilemap")
             {
                 minimapTilemap = tilemap;
             }
@@ -84,27 +84,27 @@ public class InstantiatedRoom : MonoBehaviour
 
             if(minimapTilemap != null)
             {
-                BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
+                BlockDoorwayOnTilemapLayer(minimapTilemap, doorway);
             }
 
             if(groundTilemap != null)
             {
-                BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
-            }
-
-            if(decoration2Tilemap != null)
-            {
-                BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
+                BlockDoorwayOnTilemapLayer(groundTilemap, doorway);
             }
 
             if(decoration1Tilemap != null)
             {
-                BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
+                BlockDoorwayOnTilemapLayer(decoration1Tilemap, doorway);
+            }
+
+            if(decoration2Tilemap != null)
+            {
+                BlockDoorwayOnTilemapLayer(decoration2Tilemap, doorway);
             }
 
             if(frontTilemap != null)
             {
-                BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
+                BlockDoorwayOnTilemapLayer(frontTilemap, doorway);
             }
         }
     }
@@ -156,10 +156,10 @@ public class InstantiatedRoom : MonoBehaviour
             {
                 Matrix4x4 transformMatrix = tilemap.GetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - yPos, 0));
 
-                tilemap.SetTile(new Vector3Int(startPosition.x + 1 + xPos, startPosition.y - yPos, 0), tilemap.GetTile(new Vector3Int(startPosition.x +
+                tilemap.SetTile(new Vector3Int(startPosition.x + xPos, startPosition.y - 1 - yPos, 0), tilemap.GetTile(new Vector3Int(startPosition.x +
                     xPos, startPosition.y - yPos, 0)));
 
-                tilemap.SetTransformMatrix(new Vector3Int(startPosition.x + 1 + xPos, startPosition.y - yPos, 0), transformMatrix);
+                tilemap.SetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - 1 - yPos, 0), transformMatrix);
             }
         }
     }

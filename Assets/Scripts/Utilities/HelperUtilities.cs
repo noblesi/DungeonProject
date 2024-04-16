@@ -14,6 +14,16 @@ public static class HelperUtilities
         return false;
     }
 
+    public static bool ValidateCheckNullValue(Object thisObj, string fieldName, Object objToCheck)
+    {
+        if(objToCheck == null)
+        {
+            Debug.Log(fieldName + "은 현재 NULL값입니다." + thisObj.name.ToString());
+            return true;
+        }
+        return false;
+    }
+
     public static bool ValidateCheckEnumerableValues(Object thisObj, string fieldName, IEnumerable enumerableObjectToCheck)
     {
         bool error = false;
@@ -44,6 +54,51 @@ public static class HelperUtilities
             error = true;
         }
         return error;
+    }
+
+    public static bool ValidateCheckPositiveValue(Object thisObj, string fieldName, int valueToCheck, bool isZeroAllowed)
+    {
+        bool error = false;
+
+        if (isZeroAllowed)
+        {
+            if(valueToCheck < 0)
+            {
+                Debug.Log(fieldName + "은(는) 반드시 양수 또는 0을 포함해야합니다." + thisObj.name.ToString());
+                error = true;
+            }
+        }
+        else
+        {
+            if(valueToCheck <= 0)
+            {
+                Debug.Log(fieldName + "은(는) 반드시 양수를 포함해야합니다." + thisObj.name.ToString());
+                error = true;
+            }
+        }
+
+        return error;
+    }
+
+    public static Vector3 GetSpawnPositionNearestToPlayer(Vector3 playerPosition)
+    {
+        Room currentRoom = GameManager.Instance.GetCurrentRoom();
+
+        Grid grid = currentRoom.instantiatedRoom.grid;
+
+        Vector3 nearestSpawnPosition = new Vector3(10000f, 10000f, 0f);
+
+        foreach(Vector2Int spawnPositionGrid in currentRoom.spawnPositionArray)
+        {
+            Vector3 spawnPositionWorld = grid.CellToWorld((Vector3Int)spawnPositionGrid);
+
+            if(Vector3.Distance(spawnPositionWorld, playerPosition) < Vector3.Distance(nearestSpawnPosition, playerPosition))
+            {
+                nearestSpawnPosition = spawnPositionWorld;
+            }
+        }
+
+        return nearestSpawnPosition;
     }
 }
     
