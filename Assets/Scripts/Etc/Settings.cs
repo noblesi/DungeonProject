@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class Settings 
 {
+    #region 단위 세팅
+    public const float pixelsPerUnit = 16f;
+    public const float tileSizePixels = 16f;
+    #endregion
+
     #region 던전 세팅
 
     public const int maxDungeonRebuildAttemptsForRoomGraph = 1000;
@@ -13,6 +18,7 @@ public static class Settings
 
     #region 방 세팅
 
+    public const float fadeInTime = 0.5f;
     public const int maxChildCorridors = 3;
 
     #endregion
@@ -26,5 +32,15 @@ public static class Settings
     public static int aimLeft = Animator.StringToHash("aimLeft");
     public static int isIdle = Animator.StringToHash("isIdle");
     public static int isMoving = Animator.StringToHash("isMoving");
+    public static int rollUp = Animator.StringToHash("rollUp");
+    public static int rollRight = Animator.StringToHash("rollRight");
+    public static int rollLeft = Animator.StringToHash("rollLeft");
+    public static int rollDown = Animator.StringToHash("rollDown");
+    public static float baseSpeedForPlayerAnimations = 8f;
+
+    public static int open = Animator.StringToHash("open");
+
+    public const string playerTag = "Player";
+    public const string playerWeapon = "playerWeapon";
     #endregion
 }

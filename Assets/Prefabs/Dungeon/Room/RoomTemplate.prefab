@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 265505767296971969}
   - component: {fileID: 8393736939805556199}
   - component: {fileID: 8432627172002844765}
+  - component: {fileID: -6730598413916915911}
   m_Layer: 12
   m_Name: RoomTemplate
   m_TagString: Untagged
@@ -677,6 +678,18 @@ MonoBehaviour:
   roomColliderBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+--- !u!114 &-6730598413916915911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142884904855897210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae2c465e3df641498d0ebe55267fc73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5060319895108146411
 GameObject:
   m_ObjectHideFlags: 0

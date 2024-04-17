@@ -12,7 +12,7 @@ public class RoomNodeTypeSO : ScriptableObject
     public bool isCorridorNS;
     public bool isCorridorEW;
     public bool isEntrance;
-    public bool isBoosRoom;
+    public bool isBossRoom;
     public bool isNone;
 
     #region 유효성검사

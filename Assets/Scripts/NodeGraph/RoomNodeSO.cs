@@ -50,7 +50,7 @@ public class RoomNodeSO : ScriptableObject
             roomNodeType = roomNodeTypeList.list[selection];
 
             if (roomNodeTypeList.list[selected].isCorridor && !roomNodeTypeList.list[selection].isCorridor || !roomNodeTypeList.list[selected].isCorridor 
-                && roomNodeTypeList.list[selection].isCorridor || !roomNodeTypeList.list[selected].isBoosRoom && roomNodeTypeList.list[selection].isBoosRoom)
+                && roomNodeTypeList.list[selection].isCorridor || !roomNodeTypeList.list[selected].isBossRoom && roomNodeTypeList.list[selection].isBossRoom)
             {
                 if (childRoomNodeIDList.Count > 0)
                 {
@@ -195,11 +195,11 @@ public class RoomNodeSO : ScriptableObject
         bool isConnectedBossNodeAlready = false;
         foreach(RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
         {
-            if (roomNode.roomNodeType.isBoosRoom && roomNode.parentRoomNodeIDList.Count > 0)
+            if (roomNode.roomNodeType.isBossRoom && roomNode.parentRoomNodeIDList.Count > 0)
                 isConnectedBossNodeAlready = true;
         }
 
-        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isBoosRoom && isConnectedBossNodeAlready)
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isBossRoom && isConnectedBossNodeAlready)
             return false;
 
         if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isNone)

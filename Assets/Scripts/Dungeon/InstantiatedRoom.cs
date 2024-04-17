@@ -26,11 +26,23 @@ public class InstantiatedRoom : MonoBehaviour
         roomColliderBounds = boxCollider2D.bounds;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == Settings.playerTag && room != GameManager.Instance.GetCurrentRoom())
+        {
+            this.room.isPreviouslyVisited = true;
+
+            StaticEventHandler.CallRoomChangedEvent(room);
+        }
+    }
+
     public void Initialize(GameObject roomGameobj)
     {
         PopulateTilemapMemberVariables(roomGameobj);
 
         BlockOffUnusedDoorways();
+
+        AddDoorsToRooms();
 
         DisableCollisionTilemapRenderer();
     }
@@ -39,31 +51,31 @@ public class InstantiatedRoom : MonoBehaviour
     {
         grid = roomGameobj.GetComponentInChildren<Grid>();
 
-        Tilemap[] tilemaps = roomGameobj.GetComponentsInChildren<Tilemap>();    
+        Tilemap[] tilemaps = roomGameobj.GetComponentsInChildren<Tilemap>();
 
-        foreach(Tilemap tilemap in tilemaps)
+        foreach (Tilemap tilemap in tilemaps)
         {
-            if(tilemap.gameObject.tag == "groundTilemap")
+            if (tilemap.gameObject.tag == "groundTilemap")
             {
                 groundTilemap = tilemap;
             }
-            else if(tilemap.gameObject.tag == "decoration1Tilemap")
+            else if (tilemap.gameObject.tag == "decoration1Tilemap")
             {
                 decoration1Tilemap = tilemap;
             }
-            else if(tilemap.gameObject.tag == "decoration2Tilemap")
+            else if (tilemap.gameObject.tag == "decoration2Tilemap")
             {
                 decoration2Tilemap = tilemap;
             }
-            else if(tilemap.gameObject.tag == "frontTilemap")
+            else if (tilemap.gameObject.tag == "frontTilemap")
             {
                 frontTilemap = tilemap;
             }
-            else if(tilemap.gameObject.tag == "collisionTilemap")
+            else if (tilemap.gameObject.tag == "collisionTilemap")
             {
                 collisionTilemap = tilemap;
             }
-            else if(tilemap.gameObject.tag == "minimapTilemap")
+            else if (tilemap.gameObject.tag == "minimapTilemap")
             {
                 minimapTilemap = tilemap;
             }
@@ -72,37 +84,37 @@ public class InstantiatedRoom : MonoBehaviour
 
     private void BlockOffUnusedDoorways()
     {
-        foreach(DoorWay doorway in room.doorWayList)
+        foreach (DoorWay doorway in room.doorWayList)
         {
             if (doorway.isConnected)
                 continue;
 
-            if(collisionTilemap != null)
+            if (collisionTilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(collisionTilemap, doorway);
             }
 
-            if(minimapTilemap != null)
+            if (minimapTilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(minimapTilemap, doorway);
             }
 
-            if(groundTilemap != null)
+            if (groundTilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(groundTilemap, doorway);
             }
 
-            if(decoration1Tilemap != null)
+            if (decoration1Tilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(decoration1Tilemap, doorway);
             }
 
-            if(decoration2Tilemap != null)
+            if (decoration2Tilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(decoration2Tilemap, doorway);
             }
 
-            if(frontTilemap != null)
+            if (frontTilemap != null)
             {
                 BlockDoorwayOnTilemapLayer(frontTilemap, doorway);
             }
@@ -132,9 +144,9 @@ public class InstantiatedRoom : MonoBehaviour
     {
         Vector2Int startPosition = doorway.doorwayStartCopyPosition;
 
-        for(int xPos = 0; xPos < doorway.doorwayCopyTileWidth; xPos++)
+        for (int xPos = 0; xPos < doorway.doorwayCopyTileWidth; xPos++)
         {
-            for(int yPos = 0; yPos < doorway.doorwayCopyTileHeight; yPos++)
+            for (int yPos = 0; yPos < doorway.doorwayCopyTileHeight; yPos++)
             {
                 Matrix4x4 transformMatrix = tilemap.GetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - yPos, 0));
 
@@ -160,6 +172,51 @@ public class InstantiatedRoom : MonoBehaviour
                     xPos, startPosition.y - yPos, 0)));
 
                 tilemap.SetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - 1 - yPos, 0), transformMatrix);
+            }
+        }
+    }
+
+    private void AddDoorsToRooms()
+    {
+        if (room.roomNodeType.isCorridorEW || room.roomNodeType.isCorridorNS) return;
+
+        foreach(DoorWay doorway in room.doorWayList)
+        {
+            if(doorway.doorPrefab != null && doorway.isConnected)
+            {
+                float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+
+                GameObject door = null;
+
+                if(doorway.orientation == Orientation.north)
+                {
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform); ;
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y + tileDistance, 0f);
+                }
+                else if(doorway.orientation == Orientation.south)
+                {
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y, 0f);
+                }
+                else if (doorway.orientation == Orientation.east)
+                {
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+                else if (doorway.orientation == Orientation.west)
+                {
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = new Vector3(doorway.position.x, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+
+                Door doorComponent = door.GetComponent<Door>();
+
+                if (room.roomNodeType.isBossRoom)
+                {
+                    doorComponent.isBossRoomDoor = true;
+
+                    doorComponent.LockDoor();
+                }
             }
         }
     }

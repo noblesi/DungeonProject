@@ -33,22 +33,27 @@ public class GameManager : Singleton<GameManager>
         player.Initialize(playerDetails);
     }
 
+    private void OnEnable()
+    {
+        StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+    }
+
+    private void OnDisable()
+    {
+        StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+    }
+
+    private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
+    {
+        SetCurrentRoom(roomChangedEventArgs.room);
+    }
+
     private void Start()
     {
         gameState = GameState.gameStarted;
 
         HandleGameState();
     }
-
-    //private void Update()
-    //{
-    //    HandleGameState();
-
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        gameState= GameState.gameStarted;
-    //    }
-    //}
 
     private void HandleGameState()
     {
@@ -77,6 +82,8 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogError("던전을 생성할 수 없습니다.");
         }
+
+        StaticEventHandler.CallRoomChangedEvent(currentRoom);
 
         player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f, (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
 
