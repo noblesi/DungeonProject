@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1036031706241128197, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036031706241128197, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1036031706378366385, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
       propertyPath: m_Name
       value: HandNoWeapon
@@ -66,10 +74,10 @@ PrefabInstance:
     - target: {fileID: 1036031706969380998, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 1036031706969380998, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1036031708319850016, guid: 5b65102c35f90364c8432f4cb4c46f24, type: 3}
       propertyPath: m_Mass

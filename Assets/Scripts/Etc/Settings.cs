@@ -40,7 +40,14 @@ public static class Settings
 
     public static int open = Animator.StringToHash("open");
 
+    #endregion
+
+    #region 게임오브젝트 태그
     public const string playerTag = "Player";
     public const string playerWeapon = "playerWeapon";
+    #endregion
+
+    #region 발포
+    public const float useAimAngleDistance = 3.5f;
     #endregion
 }
