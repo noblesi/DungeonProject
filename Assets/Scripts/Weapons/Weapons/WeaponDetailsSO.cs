@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponDetails_", menuName ="ScriptableObject/Weapons/WeaponDetails")]
-public class NewBehaviourScript : ScriptableObject
+public class WeaponDetailsSO : ScriptableObject
 {
     public string weaponName;
     public Sprite weaponSprite;
 
     public Vector3 weaponShootPosition;
-    //public AmmoDetailsSO weaponCurrentAmmo;
+    public AmmoDetailsSO weaponCurrentAmmo;
 
     public bool hasInfiniteAmmo = false;
     public bool hasInfiniteClipCapacity = false;
@@ -25,7 +25,7 @@ public class NewBehaviourScript : ScriptableObject
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckEmptyString(this, nameof(weaponName), weaponName);
-        //HelperUtilities.ValidateCheckNullValue(this, nameof(weaponCurrentAmmo), weaponCurrentAmmo);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(weaponCurrentAmmo), weaponCurrentAmmo);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(weaponFireRate), weaponFireRate, false);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(weaponPrechargeTime), weaponPrechargeTime, false);
 

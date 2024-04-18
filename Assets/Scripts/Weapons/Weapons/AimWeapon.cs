@@ -18,15 +18,15 @@ public class AimWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        aimWeaponEvent.OnWeaponAim += aimWeaponEvent_OnWeaponAim;
+        aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
     }
 
     private void OnDisable()
     {
-        aimWeaponEvent.OnWeaponAim -= aimWeaponEvent_OnWeaponAim;
+        aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
-    private void aimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
+    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
     {
         Aim(aimWeaponEventArgs.aimDirection, aimWeaponEventArgs.aimAngle);
     }

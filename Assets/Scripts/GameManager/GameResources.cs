@@ -28,6 +28,8 @@ public class GameResources : MonoBehaviour
 
     public Shader variableLitShader;
 
+    public GameObject ammoIconPrefab;
+
     #region 유효성 검사
 #if UNITY_EDITOR
     private void OnValidate()

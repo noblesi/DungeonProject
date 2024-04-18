@@ -55,6 +55,13 @@ public class GameManager : Singleton<GameManager>
         HandleGameState();
     }
 
+    private void Update()
+    {
+        HandleGameState();
+
+        
+    }
+
     private void HandleGameState()
     {
         switch(gameState)

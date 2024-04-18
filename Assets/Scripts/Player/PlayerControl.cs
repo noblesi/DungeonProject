@@ -9,9 +9,9 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private MovementDetailsSO movementDetails;
 
-    [SerializeField] private Transform weaponShootPosition;
-
     private Player player;
+    private bool leftMouseDownPreviousFrame = false;
+    private int currentWeaponIndex = 1;
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
@@ -29,7 +29,24 @@ public class PlayerControl : MonoBehaviour
     {
         waitForFixedUpdate = new WaitForFixedUpdate();
 
+        SetStartingWeapon();
+
         SetPlayerAnimationSpeed();
+    }
+
+    private void SetStartingWeapon()
+    {
+        int index = 1;
+
+        foreach(Weapon weapon in player.weaponList)
+        {
+            if(weapon.weaponDetails == player.playerDetails.startingWeapon)
+            {
+                SetWeaponByIndex(index);
+                break;
+            }
+            index++;
+        }
     }
 
     private void SetPlayerAnimationSpeed()
@@ -122,13 +139,17 @@ public class PlayerControl : MonoBehaviour
         AimDirection playerAimDirection;
 
         AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
+
+        FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+
+        ReloadWeaponInput();
     }
 
     private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngleDegrees, out float playerAngleDegrees, out AimDirection playerAimDirection)
     {
         Vector3 mouseWorldPostion = HelperUtilities.GetMouseWorldPosition();
 
-        weaponDirection = (mouseWorldPostion - weaponShootPosition.position);
+        weaponDirection = (mouseWorldPostion - player.activeWeapon.GetShootPosition());
 
         Vector3 playerDirection = (mouseWorldPostion - transform.position);
 
@@ -139,6 +160,46 @@ public class PlayerControl : MonoBehaviour
         playerAimDirection = HelperUtilities.GetAimDirection(playerAngleDegrees);
 
         player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+    }
+
+    private void FireWeaponInput(Vector3 weaponDirection, float weaponAngleDegrees, float playerAngleDegrees, AimDirection playerAimDirection)
+    {
+        if (Input.GetMouseButton(0))
+        {
+            player.fireWeaponEvent.CallFireWeaponEvent(true, leftMouseDownPreviousFrame, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+
+            leftMouseDownPreviousFrame = true;
+        }
+        else
+        {
+            leftMouseDownPreviousFrame = false;
+        }
+    }
+
+    private void SetWeaponByIndex(int weaponIndex)
+    {
+        if (weaponIndex - 1 < player.weaponList.Count)
+        {
+            currentWeaponIndex = weaponIndex;
+            player.setActiveWeaponEvent.CallSetActiveWeaponEvent(player.weaponList[weaponIndex - 1]);
+        }
+    }
+
+    private void ReloadWeaponInput()
+    {
+        Weapon currentWeapon = player.activeWeapon.GetCurrentWeapon();
+
+        if (currentWeapon.isWeaponReloading) return;
+
+        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon.weaponDetails.hasInfiniteAmmo)
+            return;
+
+        if (currentWeapon.weaponClipRemainingAmmo == currentWeapon.weaponDetails.weaponClipAmmoCapacity) return;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11083f71e0eda8a41b45baff227086a5, type: 3}
-  m_Name: AmmoDetails_Pistol
+  m_Name: AmmoDetails_Revolver
   m_EditorClassIdentifier: 
-  ammoName: PistolAmmos
+  ammoName: RevolverAmmos
   isPlayerAmmo: 1
   ammoSprite: {fileID: 21300000, guid: 4df9cc7131cd27f4288bca5e76c82034, type: 3}
   ammoPrefabArray:
@@ -20,13 +20,13 @@ MonoBehaviour:
   ammoMaterial: {fileID: 2100000, guid: 5c86445c1f630c141ab88b05539eca5d, type: 2}
   ammoChargeTime: 0.1
   ammoChargeMaterial: {fileID: 0}
-  ammoDamage: 6
-  ammoSpeedMin: 15
-  ammoSpeedMax: 15
-  ammoRange: 12
+  ammoDamage: 7
+  ammoSpeedMin: 13
+  ammoSpeedMax: 13
+  ammoRange: 15
   ammoRotationSpeed: 1
-  ammoSpreadMin: 2
-  ammoSpreadMax: 4
+  ammoSpreadMin: 1
+  ammoSpreadMax: 3
   ammoSpawnAmountMin: 1
   ammoSpawnAmountMax: 1
   ammoSpawnIntervalMin: 0

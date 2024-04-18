@@ -50,4 +50,8 @@ public static class Settings
     #region 발포
     public const float useAimAngleDistance = 3.5f;
     #endregion
+
+    #region UI 파라미터
+    public const float uiAmmoIconSpacing = 4f;
+    #endregion
 }
