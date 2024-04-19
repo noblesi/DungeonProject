@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(FireWeaponEvent))]
 [RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
+[DisallowMultipleComponent]
 public class FireWeapon : MonoBehaviour
 {
     private float firePreChargeTimer = 0f;
@@ -120,6 +121,8 @@ public class FireWeapon : MonoBehaviour
 
         while(ammoCounter < ammoPerShot)
         {
+            ammoCounter++;
+
             GameObject ammoPrefab = currentAmmo.ammoPrefabArray[Random.Range(0, currentAmmo.ammoPrefabArray.Length)];
 
             float ammoSpeed = Random.Range(currentAmmo.ammoSpeedMin, currentAmmo.ammoSpeedMax);

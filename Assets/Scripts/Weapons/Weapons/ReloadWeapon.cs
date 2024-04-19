@@ -10,28 +10,28 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class ReloadWeapon : MonoBehaviour
 {
-    private ReloadWeaponEvent reloadWeapnEvent;
+    private ReloadWeaponEvent reloadWeaponEvent;
     private WeaponReloadedEvent weaponReloadedEvent;
     private SetActiveWeaponEvent setActiveWeaponEvent;
     private Coroutine reloadWeaponCoroutine;
 
     private void Awake()
     {
-        reloadWeapnEvent = GetComponent<ReloadWeaponEvent>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
         weaponReloadedEvent = GetComponent<WeaponReloadedEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
     }
 
     private void OnEnable()
     {
-        reloadWeapnEvent.OnReloadWeapon += ReloadWeaponEvent_OnReloadWeapon;
+        reloadWeaponEvent.OnReloadWeapon += ReloadWeaponEvent_OnReloadWeapon;
 
         setActiveWeaponEvent.OnSetActiveWeapon += SetActiveWeaponEvent_OnSetActiveWeapon;
     }
 
     private void OnDisable()
     {
-        reloadWeapnEvent.OnReloadWeapon -= ReloadWeaponEvent_OnReloadWeapon;
+        reloadWeaponEvent.OnReloadWeapon -= ReloadWeaponEvent_OnReloadWeapon;
 
         setActiveWeaponEvent.OnSetActiveWeapon -= SetActiveWeaponEvent_OnSetActiveWeapon;
     }
@@ -96,16 +96,16 @@ public class ReloadWeapon : MonoBehaviour
         weaponReloadedEvent.CallWeaponReloadedEvent(weapon);
     }
 
-    private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponArgs)
+    private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponEventArgs)
     {
-        if(setActiveWeaponArgs.weapon.isWeaponReloading)
+        if(setActiveWeaponEventArgs.weapon.isWeaponReloading)
         {
             if(reloadWeaponCoroutine != null)
             {
                 StopCoroutine(reloadWeaponCoroutine);
             }
 
-            reloadWeaponCoroutine = StartCoroutine(ReloadWeaponRoutine(setActiveWeaponArgs.weapon, 0));
+            reloadWeaponCoroutine = StartCoroutine(ReloadWeaponRoutine(setActiveWeaponEventArgs.weapon, 0));
         }
     }
 }

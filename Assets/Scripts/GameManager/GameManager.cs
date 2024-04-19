@@ -107,6 +107,11 @@ public class GameManager : Singleton<GameManager>
         return currentRoom;
     }
 
+    public DungeonLevelSO GetCurrentDungeonLevel()
+    {
+        return dungeonLevelList[currentDungeonLevelListIndex];
+    }
+
     #region 유효성검사
 #if UNITY_EDITOR
     private void OnValidate()

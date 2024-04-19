@@ -89,6 +89,11 @@ public class Player : MonoBehaviour
     private void SetPlayerHp()
     {
         hp.SetStartingHp(playerDetails.playerHpAmount);
+    } 
+
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;
     }
 
     public Weapon AddWeaponToPlayer(WeaponDetailsSO weaponDetails)

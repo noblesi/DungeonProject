@@ -200,7 +200,7 @@ public class WeaponStatusUI : MonoBehaviour
 
     private void UpdateReloadText(Weapon weapon)
     {
-        if((weapon.weaponDetails.hasInfiniteClipCapacity) && (weapon.weaponClipRemainingAmmo <= 0 || weapon.isWeaponReloading))
+        if((!weapon.weaponDetails.hasInfiniteClipCapacity) && (weapon.weaponClipRemainingAmmo <= 0 || weapon.isWeaponReloading))
         {
             barImage.color = Color.red;
 
