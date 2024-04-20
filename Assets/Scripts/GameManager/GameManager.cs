@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     private Player player;
 
     [HideInInspector] public GameState gameState;
+    [HideInInspector] public GameState previousGameState;
 
     protected override void Awake()
     {
@@ -50,9 +51,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        previousGameState = GameState.gameStarted;
         gameState = GameState.gameStarted;
-
-        HandleGameState();
     }
 
     private void Update()
@@ -100,6 +100,11 @@ public class GameManager : Singleton<GameManager>
     public Player GetPlayer()
     {
         return player;  
+    }
+
+    public Sprite GetPlayerMiniMapIcon()
+    {
+        return playerDetails.playerMiniMapIcon;
     }
 
     public Room GetCurrentRoom()

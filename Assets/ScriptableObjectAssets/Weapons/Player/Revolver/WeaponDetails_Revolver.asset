@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewBehaviourScript
   weaponName: Revolver
   weaponSprite: {fileID: 21300000, guid: 29bc0107bc11191468ed7d175994fb5b, type: 3}
-  weaponShootPosition: {x: 1.115, y: 0.277, z: 0}
+  weaponShootPosition: {x: 1.15, y: 0.329, z: 0}
   weaponCurrentAmmo: {fileID: 11400000, guid: 92825f1a2009cac498fb2a157ad5af68, type: 2}
   hasInfiniteAmmo: 0
   hasInfiniteClipCapacity: 0

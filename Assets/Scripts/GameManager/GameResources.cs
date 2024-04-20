@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Tilemaps;
 
 public class GameResources : MonoBehaviour
@@ -23,6 +24,10 @@ public class GameResources : MonoBehaviour
 
     public CurrentPlayerSO currentPlayer;
 
+    public AudioMixerGroup soundsMasterMixerGroup;
+
+    public SoundEffectSO doorOpenCloseSoundEffect;
+
     public Material dimmedMaterial;
 
     public Material litMaterial;
@@ -41,6 +46,7 @@ public class GameResources : MonoBehaviour
     {
         HelperUtilities.ValidateCheckNullValue(this, nameof(roomNodeTypeList), roomNodeTypeList);
         HelperUtilities.ValidateCheckNullValue(this, nameof(currentPlayer), currentPlayer);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenCloseSoundEffect), doorOpenCloseSoundEffect);
         HelperUtilities.ValidateCheckNullValue(this, nameof(litMaterial), litMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(dimmedMaterial), dimmedMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);

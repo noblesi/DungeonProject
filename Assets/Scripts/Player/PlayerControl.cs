@@ -220,7 +220,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            SetWeaponByIndex(9);
+            SetWeaponByIndex(8);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {

@@ -10,6 +10,9 @@ public class WeaponDetailsSO : ScriptableObject
 
     public Vector3 weaponShootPosition;
     public AmmoDetailsSO weaponCurrentAmmo;
+    public WeaponShootEffectSO weaponShootEffect;
+    public SoundEffectSO weaponFiringSoundEffect;
+    public SoundEffectSO weaponReloadingSoundEffect;
 
     public bool hasInfiniteAmmo = false;
     public bool hasInfiniteClipCapacity = false;

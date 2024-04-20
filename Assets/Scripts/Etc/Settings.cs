@@ -38,6 +38,8 @@ public static class Settings
     public static int rollDown = Animator.StringToHash("rollDown");
     public static float baseSpeedForPlayerAnimations = 8f;
 
+    public static float baseSpeedForEnemyAnimations = 3f;
+
     public static int open = Animator.StringToHash("open");
 
     #endregion
@@ -54,6 +56,7 @@ public static class Settings
     #region AStar알고리즘 파라미터
     public const int defaultAstarMovementPenalty = 40;
     public const int preferredPathAStarMovementPenalty = 1;
+    public const int targetFrameRateToSpreadPathfindingOver = 60;
     public const float playerMoveDistanceToRebuildPath = 3f;
     public const float enemyPathRebuildCooldown = 2f;
     #endregion
