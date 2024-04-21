@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 #region 필수 컴포넌트
+[RequireComponent(typeof(HPEvent))] 
 [RequireComponent(typeof(Hp))]
+[RequireComponent(typeof(DealContactDamage))]
+[RequireComponent(typeof(ReceiveContactDamage))]
+[RequireComponent(typeof(DestroyedEvent))]
+[RequireComponent(typeof(Destroyed))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(MovementByVelocityEvent))]
 [RequireComponent(typeof(MovementByVelocity))]
@@ -34,7 +39,10 @@ using UnityEngine.Rendering;
 public class Player : MonoBehaviour
 {
     [HideInInspector] public PlayerDetailsSO playerDetails;
+    [HideInInspector] public HPEvent hpEvent;
     [HideInInspector] public Hp hp;
+    [HideInInspector] public DestroyedEvent destroyedEvent;
+    [HideInInspector] public PlayerControl playerControl;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public IdleEvent idleEvent;
@@ -52,7 +60,10 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        hpEvent = GetComponent<HPEvent>();
         hp = GetComponent<Hp>();
+        destroyedEvent = GetComponent<DestroyedEvent>();
+        playerControl = GetComponent<PlayerControl>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         idleEvent = GetComponent<IdleEvent>();
@@ -74,6 +85,24 @@ public class Player : MonoBehaviour
         CreatePlayerStartingWeapons();
 
         SetPlayerHp();
+    }
+
+    private void OnEnable()
+    {
+        hpEvent.OnHpChanged += HpEvent_OnHpChanged;
+    }
+
+    private void OnDisable()
+    {
+        hpEvent.OnHpChanged -= HpEvent_OnHpChanged;
+    }
+
+    private void HpEvent_OnHpChanged(HPEvent hpEvent, HPEventArgs hpEventArgs)
+    {
+        if(hpEventArgs.hp <= 0f)
+        {
+            destroyedEvent.CallDestroyedEvent(true, 0);
+        }
     }
 
     private void CreatePlayerStartingWeapons()

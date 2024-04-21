@@ -39,3 +39,5 @@ MonoBehaviour:
   - {x: -1, y: 8}
   - {x: 14, y: 14}
   - {x: 22, y: 20}
+  enemiesByLevelList: []
+  roomEnemySpawnParametersList: []

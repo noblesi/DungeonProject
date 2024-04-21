@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[DisallowMultipleComponent]
 public class InstantiatedRoom : MonoBehaviour
 {
     [HideInInspector] public Room room;
@@ -194,7 +192,7 @@ public class InstantiatedRoom : MonoBehaviour
 
                 foreach(TileBase collisionTile in GameResources.Instance.enemyUnwalkableCollisionTilesArray)
                 {
-                    if(tile = collisionTile)
+                    if(tile == collisionTile)
                     {
                         aStarMovementPenalty[x, y] = 0;
                         break;
@@ -264,6 +262,11 @@ public class InstantiatedRoom : MonoBehaviour
         boxCollider2D.enabled = false;
     }
 
+    public void EnableRoomCollider()
+    {
+        boxCollider2D.enabled = true;
+    }
+
     public void LockDoors()
     {
         Door[] doorArray = GetComponentsInChildren<Door>();
@@ -274,5 +277,27 @@ public class InstantiatedRoom : MonoBehaviour
         }
 
         DisableRoomCollider();
+    }
+
+    public void UnlockDoors(float doorUnlockDelay)
+    {
+        StartCoroutine(UnlockDoorsRoutine(doorUnlockDelay));
+    }
+
+    private IEnumerator UnlockDoorsRoutine(float doorUnlockDelay)
+    {
+        if(doorUnlockDelay > 0f)
+        {
+            yield return new WaitForSeconds(doorUnlockDelay);
+        }
+
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        foreach(Door door in doorArray)
+        {
+            door.UnlockDoor();
+        }
+
+        EnableRoomCollider();
     }
 }

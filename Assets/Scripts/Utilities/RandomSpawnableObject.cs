@@ -51,11 +51,11 @@ public class RandomSpawnableObject<T>
 
         if(chanceBoundariesList.Count == 0) return default(T);
 
-        int lockUpValue = Random.Range(0, ratioValueTotal);
+        int lookUpValue = Random.Range(0, ratioValueTotal);
 
         foreach(chanceBoundaries spawnChance in chanceBoundariesList)
         {
-            if(lockUpValue >= spawnChance.lowBoundaryValue && lockUpValue <= spawnChance.highBoundaryValue)
+            if(lookUpValue >= spawnChance.lowBoundaryValue && lookUpValue <= spawnChance.highBoundaryValue)
             {
                 spawnableObject = spawnChance.spawnableObject;
                 break;

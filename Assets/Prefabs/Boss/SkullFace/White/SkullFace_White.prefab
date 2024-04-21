@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkullFace_White
       objectReference: {fileID: 0}
+    - target: {fileID: 1969354938996695765, guid: 5102bb400ff6b7044ad09cc2fffbd625, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.91
+      objectReference: {fileID: 0}
     - target: {fileID: 2083319212424740751, guid: 5102bb400ff6b7044ad09cc2fffbd625, type: 3}
       propertyPath: enemyDetails
       value: 

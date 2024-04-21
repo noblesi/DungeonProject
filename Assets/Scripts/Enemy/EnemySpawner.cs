@@ -55,7 +55,13 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     private void SpawnEnemies()
     {
-        if(GameManager.Instance.gameState == GameState.playingLevel)
+        if(GameManager.Instance.gameState == GameState.bossStage)
+        {
+            GameManager.Instance.previousGameState = GameState.bossStage;
+            GameManager.Instance.gameState = GameState.engagingBoss;
+        }
+
+        else if(GameManager.Instance.gameState == GameState.playingLevel)
         {
             GameManager.Instance.previousGameState = GameState.playingLevel;
             GameManager.Instance.gameState = GameState.engagingEnemies;
@@ -109,5 +115,37 @@ public class EnemySpawner : Singleton<EnemySpawner>
         GameObject enemy = Instantiate(enemyDetails.enemyPrefab, position, Quaternion.identity, transform);
 
         enemy.GetComponent<Enemy>().InitializeEnemy(enemyDetails, enemiesSpawnedSoFar, dungeonLevel);
+
+        enemy.GetComponent<DestroyedEvent>().OnDestroyed += Enemy_OnDestroyed;
     }
+
+    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
+    {
+        destroyedEvent.OnDestroyed -= Enemy_OnDestroyed;
+
+        currentEnemyCount--;
+
+        StaticEventHandler.CallPointsScoredEvent(destroyedEventArgs.points);
+
+        if(currentEnemyCount <= 0 && enemiesSpawnedSoFar == enemiesToSpawn)
+        {
+            currentRoom.isClearedOfEnemies = true;
+
+            if(GameManager.Instance.gameState == GameState.engagingEnemies)
+            {
+                GameManager.Instance.gameState = GameState.playingLevel;
+                GameManager.Instance.previousGameState = GameState.engagingEnemies;
+            }
+            else if(GameManager.Instance.gameState == GameState.engagingBoss)
+            {
+                GameManager.Instance.gameState = GameState.bossStage;
+                GameManager.Instance.previousGameState = GameState.engagingBoss;
+            }
+
+            currentRoom.instantiatedRoom.UnlockDoors(Settings.doorUnlockDelay);
+
+            StaticEventHandler.CallRoomEnemiesDefeatedEvent(currentRoom);
+        }
+    }
+    
 }

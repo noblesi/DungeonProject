@@ -15,7 +15,9 @@ MonoBehaviour:
   playerCharacterName: The Scientist
   playerPrefab: {fileID: 4025516008625250591, guid: 2522608a0b76ad543ae4fa75cdb6b3d9, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: e52ed9234b488b0449570da9e57ce474, type: 2}
-  playerHpAmount: 60
+  playerHpAmount: 100
+  isImmuneAfterHit: 1
+  hitImmunityTimes: 3
   startingWeapon: {fileID: 11400000, guid: c8c5a827dbca99c438a4c0ebcfc50ac6, type: 2}
   startingWeaponList:
   - {fileID: 11400000, guid: c8c5a827dbca99c438a4c0ebcfc50ac6, type: 2}

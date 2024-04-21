@@ -66,7 +66,7 @@ public class RoomTemplateSO : ScriptableObject
 
                 bool isEnemyTypesListForDungeonLevel = false;
 
-                foreach(SpawnableObjectsByLevel<EnemyDetailsSO> dungeonObjectsByLevel in enemiesByLevelList)
+                foreach (SpawnableObjectsByLevel<EnemyDetailsSO> dungeonObjectsByLevel in enemiesByLevelList)
                 {
                     if (dungeonObjectsByLevel.dungeonLevel == roomEnemySpawnParameters.dungeonLevel &&
                         dungeonObjectsByLevel.spawnableObjectRatioList.Count > 0)
@@ -74,15 +74,15 @@ public class RoomTemplateSO : ScriptableObject
 
                     HelperUtilities.ValidateCheckNullValue(this, nameof(dungeonObjectsByLevel.dungeonLevel), dungeonObjectsByLevel.dungeonLevel);
 
-                    foreach(SpawnableObjectRatio<EnemyDetailsSO> dungeonObjectRatio in dungeonObjectsByLevel.spawnableObjectRatioList)
+                    foreach (SpawnableObjectRatio<EnemyDetailsSO> dungeonObjectRatio in dungeonObjectsByLevel.spawnableObjectRatioList)
                     {
                         HelperUtilities.ValidateCheckNullValue(this, nameof(dungeonObjectRatio.dungeonObject), dungeonObjectRatio.dungeonObject);
 
-                        HelperUtilities.ValidateCheckPositiveValue(this, nameof(dungeonObjectRatio.ratio), dungeonObjectRatio.ratio, false);   
+                        HelperUtilities.ValidateCheckPositiveValue(this, nameof(dungeonObjectRatio.ratio), dungeonObjectRatio.ratio, false);
                     }
                 }
 
-                if(isEnemyTypesListForDungeonLevel == false && roomEnemySpawnParameters.dungeonLevel != null)
+                if (isEnemyTypesListForDungeonLevel == false && roomEnemySpawnParameters.dungeonLevel != null)
                 {
                     Debug.Log("던전 레벨에 특정 적 유형이 없습니다." + roomEnemySpawnParameters.dungeonLevel.levelName + " " + this.name.ToString());
                 }

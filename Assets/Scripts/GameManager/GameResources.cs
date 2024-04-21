@@ -22,6 +22,10 @@ public class GameResources : MonoBehaviour
 
     public RoomNodeTypeListSO roomNodeTypeList;
 
+    public GameObject playerSelectionPrefab;
+
+    public List<PlayerDetailsSO> playerDetailsList;
+
     public CurrentPlayerSO currentPlayer;
 
     public AudioMixerGroup soundsMasterMixerGroup;
@@ -37,6 +41,8 @@ public class GameResources : MonoBehaviour
     public TileBase[] enemyUnwalkableCollisionTilesArray;
 
     public TileBase preferredEnemyPathTile;
+
+    public GameObject heartPrefab;
 
     public GameObject ammoIconPrefab;
 

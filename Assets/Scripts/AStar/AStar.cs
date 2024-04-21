@@ -101,11 +101,11 @@ public static class AStar
                     int movementPenaltyforGridSpace = instantiatedRoom.aStarMovementPenalty[validNeighbourNode.gridPosition.x,
                         validNeighbourNode.gridPosition.y];
 
-                    newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, validNeighbourNode);
+                    newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, validNeighbourNode) + movementPenaltyforGridSpace;
 
                     bool isValidNeighbourNodeInOpenList = openNodeList.Contains(validNeighbourNode);
 
-                    if(newCostToNeighbour < validNeighbourNode.gCost || isValidNeighbourNodeInOpenList)
+                    if(newCostToNeighbour < validNeighbourNode.gCost || !isValidNeighbourNodeInOpenList)
                     {
                         validNeighbourNode.gCost = newCostToNeighbour;
                         validNeighbourNode.hCost = GetDistance(validNeighbourNode, targetNode);

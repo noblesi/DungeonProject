@@ -62,11 +62,14 @@ public class EnemyMovementAI : MonoBehaviour
 
             if(movementSteps != null)
             {
-                enemy.idleEvent.CallIdleEvent();
-                StopCoroutine(moveEnemyRoutine);
-            }
+                if(moveEnemyRoutine != null)
+                {
+                    enemy.idleEvent.CallIdleEvent();
+                    StopCoroutine(moveEnemyRoutine);
+                }
 
-            moveEnemyRoutine = StartCoroutine(MoveEnemyRoutine(movementSteps));
+                moveEnemyRoutine = StartCoroutine(MoveEnemyRoutine(movementSteps));
+            }
         }
     }
 
@@ -86,7 +89,7 @@ public class EnemyMovementAI : MonoBehaviour
 
             yield return waitForFixedUpdate;
         }
-        
+        enemy.idleEvent.CallIdleEvent();
     }
 
     private void CreatePath()

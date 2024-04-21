@@ -20,6 +20,7 @@ MonoBehaviour:
   ammoMaterial: {fileID: 2100000, guid: 5c86445c1f630c141ab88b05539eca5d, type: 2}
   ammoChargeTime: 0
   ammoChargeMaterial: {fileID: 0}
+  ammoHitEffect: {fileID: 11400000, guid: e5ab7a9f74da3fa4497f0392fb58160f, type: 2}
   ammoDamage: 7
   ammoSpeedMin: 13
   ammoSpeedMax: 13

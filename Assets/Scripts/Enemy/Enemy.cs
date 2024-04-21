@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 #region 필수컴포넌트
+[RequireComponent(typeof(HPEvent))]
+[RequireComponent(typeof(Hp))]
+[RequireComponent(typeof(DealContactDamage))]
+[RequireComponent(typeof(DestroyedEvent))]
+[RequireComponent(typeof(Destroyed))]
 [RequireComponent(typeof(EnemyWeaponAI))]
 [RequireComponent(typeof(AimWeaponEvent))]
 [RequireComponent(typeof(AimWeapon))]
@@ -34,6 +39,8 @@ using UnityEngine.Rendering;
 public class Enemy : MonoBehaviour
 {
     [HideInInspector] public EnemyDetailsSO enemyDetails;
+    private HPEvent hpEvent;
+    private Hp hp;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public FireWeaponEvent fireWeaponEvent;
     private FireWeapon fireWeapon;
@@ -49,6 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        hpEvent = GetComponent<HPEvent>();
+        hp = GetComponent<Hp>();    
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
         fireWeapon = GetComponent<FireWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
@@ -63,11 +72,37 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        hpEvent.OnHpChanged += HpEvent_OnHpLost;
+    }
+
+    private void OnDisable()
+    {
+        hpEvent.OnHpChanged -= HpEvent_OnHpLost;
+    }
+
+    private void HpEvent_OnHpLost(HPEvent hpEvent, HPEventArgs hpEventArgs)
+    {
+        if(hpEventArgs.hp <= 0)
+        {
+            EnemyDestroyed();
+        }
+    }
+
+    private void EnemyDestroyed()
+    {
+        DestroyedEvent destroyedEvent = GetComponent<DestroyedEvent>();
+        destroyedEvent.CallDestroyedEvent(false, hp.GetStartingHp());
+    }
+
     public void InitializeEnemy(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel)
     {
         this.enemyDetails = enemyDetails;
 
         SetEnemyMovementUpdateFrame(enemySpawnNumber);
+
+        SetEnemyStartingHp(dungeonLevel);
 
         SetEnemyStartingWeapon();
 
@@ -79,6 +114,20 @@ public class Enemy : MonoBehaviour
     private void SetEnemyMovementUpdateFrame(int enemySpawnNumber)
     {
         enemyMovementAI.SetUpdateFrameNumber(enemySpawnNumber % Settings.targetFrameRateToSpreadPathfindingOver);
+    }
+
+    private void SetEnemyStartingHp(DungeonLevelSO dungeonLevel)
+    {
+        foreach(EnemyHPDetail enemyHpDetails in enemyDetails.enemyHPDetailArray)
+        {
+            if(enemyHpDetails.dungeonLevel == dungeonLevel)
+            {
+                hp.SetStartingHp(enemyHpDetails.enemyHP);
+                return;
+
+            }
+        }
+        hp.SetStartingHp(Settings.defaultEnemyHP);
     }
 
     private void SetEnemyStartingWeapon()

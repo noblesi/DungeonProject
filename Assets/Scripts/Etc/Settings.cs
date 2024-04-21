@@ -20,6 +20,7 @@ public static class Settings
 
     public const float fadeInTime = 0.5f;
     public const int maxChildCorridors = 3;
+    public const float doorUnlockDelay = 1f;
 
     #endregion
 
@@ -61,7 +62,16 @@ public static class Settings
     public const float enemyPathRebuildCooldown = 2f;
     #endregion
 
+    #region 적 파라미터
+    public const int defaultEnemyHP = 20;
+    #endregion
+
     #region UI 파라미터
+    public const float uiHeartSpacing = 16f;
     public const float uiAmmoIconSpacing = 4f;
+    #endregion
+
+    #region 접촉데미지 파라미터
+    public const float contactDamageCollisionResetDelay = 0.5f;
     #endregion
 }

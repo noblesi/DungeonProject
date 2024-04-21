@@ -38,3 +38,5 @@ MonoBehaviour:
   spawnPositionArray:
   - {x: -1, y: 8}
   - {x: 14, y: 14}
+  enemiesByLevelList: []
+  roomEnemySpawnParametersList: []

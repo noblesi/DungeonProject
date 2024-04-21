@@ -17,6 +17,7 @@ public class Ammo : MonoBehaviour, IFireable
     private float ammoChargeTimer;
     private bool isAmmoMaterialSet = false;
     private bool overrideAmmoMovement;
+    private bool isColliding = false;
 
     private void Awake()
     {
@@ -53,7 +54,25 @@ public class Ammo : MonoBehaviour, IFireable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isColliding) return;
+
+        DealDamage(collision);
+        
+        AmmoHitEffect();
+
         DisableAmmo();
+    }
+
+    private void DealDamage(Collider2D collision)
+    {
+        Hp hp = collision.GetComponent<Hp>();
+
+        if(hp != null)
+        {
+            isColliding = true;
+
+            hp.TakeDamage(ammoDetails.ammoDamage);
+        }
     }
 
     public void InitializeAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed, Vector3 weaponAimDirectionVector, 
@@ -62,6 +81,8 @@ public class Ammo : MonoBehaviour, IFireable
         #region Ammo
 
         this.ammoDetails = ammoDetails;
+
+        isColliding = false;
 
         SetFireDirection(ammoDetails, aimAngle, weaponAimAngle, weaponAimDirectionVector);
 
@@ -134,6 +155,18 @@ public class Ammo : MonoBehaviour, IFireable
     private void DisableAmmo()
     {
         gameObject.SetActive(false);
+    }
+
+    private void AmmoHitEffect()
+    {
+        if(ammoDetails.ammoHitEffect != null && ammoDetails.ammoHitEffect.ammoHitEffectPrefab != null)
+        {
+            AmmoHitEffect ammoHitEffect = (AmmoHitEffect)PoolManager.Instance.ReuseComponent(ammoDetails.ammoHitEffect.ammoHitEffectPrefab, transform.position, Quaternion.identity);
+
+            ammoHitEffect.SetHitEffect(ammoDetails.ammoHitEffect);
+
+            ammoHitEffect.gameObject.SetActive(true);
+        }
     }
 
     public void SetAmmoMaterial(Material material)

@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb0362fdf9e3ae4a9fef8fdb9dc4cea, type: 3}
-  m_Name: Room_
+  m_Script: {fileID: 11500000, guid: c8cb8d7be0bbe98418b0f265a058ea91, type: 3}
+  m_Name: RoomNodeGraph_Level5_2
   m_EditorClassIdentifier: 
-  guid: 
-  prefab: {fileID: 0}
-  previousPrefab: {fileID: 0}
-  roomNodeType: {fileID: 0}
-  lowerBounds: {x: 0, y: 0}
-  upperBounds: {x: 0, y: 0}
-  doorwayList: []
-  spawnPositionArray: []
+  roomNodeTypeList: {fileID: 0}
+  roomNodeList: []
+  roomNodeToDrawLineFrom: {fileID: 0}
+  linePosition: {x: 0, y: 0}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="WeaponShootEffect_", menuName ="ScriptableObject/Weapon/WeaponShootEffect")]
+[CreateAssetMenu(fileName ="WeaponShootEffect_", menuName ="ScriptableObject/Weapons/WeaponShootEffect")]
 public class WeaponShootEffectSO : ScriptableObject
 {
     public Gradient colorGradient;
