@@ -115,6 +115,8 @@ public class GameManager : Singleton<GameManager>
 
                 gameState = GameState.playingLevel;
 
+                RoomEnemiesDefeated();
+
                 break;
 
             case GameState.playingLevel:

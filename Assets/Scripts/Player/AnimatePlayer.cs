@@ -74,10 +74,10 @@ public class AnimatePlayer : MonoBehaviour
 
     private void InitializeRollAnimationParameters()
     {
-        player.animator.SetBool(Settings.rollUp, false);
+        player.animator.SetBool(Settings.rollDown, false);
         player.animator.SetBool(Settings.rollRight, false);
         player.animator.SetBool(Settings.rollLeft, false);
-        player.animator.SetBool(Settings.rollDown, false);
+        player.animator.SetBool(Settings.rollUp, false);
     }
 
     private void SetMovementAnimationParameters()

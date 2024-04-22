@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomNodeTypeList: {fileID: 11400000, guid: 2c833c04fabb65948a992bac548afb58, type: 2}
+  playerSelectionPrefab: {fileID: 4228832101867735334, guid: 1233cce562ef8824c925e3d6eb3f0fe9, type: 3}
+  playerDetailsList:
+  - {fileID: 11400000, guid: acf4cd612ed9dbe4ba99583b4a5c9295, type: 2}
+  - {fileID: 11400000, guid: de024a1d5a0f6ac438203e37abe2c6ff, type: 2}
+  - {fileID: 11400000, guid: 80610a2e49ef4444aa371a16e25578e0, type: 2}
   currentPlayer: {fileID: 11400000, guid: 05978f6565dd7724f9efb8a8f85ed73f, type: 2}
   soundsMasterMixerGroup: {fileID: -4734643798044506327, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
   doorOpenCloseSoundEffect: {fileID: 11400000, guid: c5f1edcce189eb64c905215ac923cadf, type: 2}

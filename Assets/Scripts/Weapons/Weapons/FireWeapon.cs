@@ -92,7 +92,7 @@ public class FireWeapon : MonoBehaviour
         return true;
     }
 
-    private void FireAmmo(float aimAngle, float weaponAimAngle, Vector2 weaponAimDirectionVector)
+    private void FireAmmo(float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
         AmmoDetailsSO currentAmmo = activeWeapon.GetCurrentAmmo();
 

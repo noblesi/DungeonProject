@@ -10,16 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674f704d133598044a18767d712d7d47, type: 3}
-  m_Name: PlayerDeatails_TheGeneral
+  m_Name: PlayerDetails_TheGeneral
   m_EditorClassIdentifier: 
   playerCharacterName: The General
   playerPrefab: {fileID: 2219506621236269091, guid: 34e6908dad0cf6b47b12d1caf2e72ef6, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: e87ce176a15556c459b355908992b930, type: 2}
-  playerHpAmount: 100
+  playerHpAmount: 1000
   isImmuneAfterHit: 1
-  hitImmunityTime: 0
+  hitImmunityTime: 2
   startingWeapon: {fileID: 11400000, guid: a0c33d9cd3cfcbe43ac4c2794d327138, type: 2}
   startingWeaponList:
   - {fileID: 11400000, guid: a0c33d9cd3cfcbe43ac4c2794d327138, type: 2}
+  - {fileID: 11400000, guid: 8b6f49497054e4f499be5d14c25f10dd, type: 2}
+  - {fileID: 11400000, guid: 5d7a73903fa1c0747a43a5de06db0066, type: 2}
+  - {fileID: 11400000, guid: c8c5a827dbca99c438a4c0ebcfc50ac6, type: 2}
+  - {fileID: 11400000, guid: 59d23250535dba241ac97f37ffdc5501, type: 2}
+  - {fileID: 11400000, guid: 3bd1e20cca40fa4459e6206899e250e5, type: 2}
+  - {fileID: 11400000, guid: 4acfb392b3590a04b87c23cc99b32072, type: 2}
+  - {fileID: 11400000, guid: b72571246bc11a148bc0229b92fd918d, type: 2}
+  - {fileID: 11400000, guid: f51673536692570438a651cbbb7ceada, type: 2}
   playerMiniMapIcon: {fileID: 21300000, guid: 709f49100a0267f419aa33d571fb9d25, type: 3}
   playerHandSprite: {fileID: 21300000, guid: a8c352369ed75924d84743672d1ab512, type: 3}

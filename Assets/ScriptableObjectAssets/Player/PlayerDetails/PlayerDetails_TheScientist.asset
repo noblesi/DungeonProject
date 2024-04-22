@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674f704d133598044a18767d712d7d47, type: 3}
-  m_Name: PlayerDeatails_TheScientist
+  m_Name: PlayerDetails_TheScientist
   m_EditorClassIdentifier: 
   playerCharacterName: The Scientist
   playerPrefab: {fileID: 4025516008625250591, guid: 2522608a0b76ad543ae4fa75cdb6b3d9, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: e52ed9234b488b0449570da9e57ce474, type: 2}
   playerHpAmount: 100
   isImmuneAfterHit: 1
-  hitImmunityTimes: 3
+  hitImmunityTime: 2
   startingWeapon: {fileID: 11400000, guid: c8c5a827dbca99c438a4c0ebcfc50ac6, type: 2}
   startingWeaponList:
   - {fileID: 11400000, guid: c8c5a827dbca99c438a4c0ebcfc50ac6, type: 2}

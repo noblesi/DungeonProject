@@ -30,8 +30,8 @@ MonoBehaviour:
   ammoSpreadMax: 30
   ammoSpawnAmountMin: 6
   ammoSpawnAmountMax: 8
-  ammoSpawnIntervalMin: 0
-  ammoSpawnIntervalMax: 0.01
+  ammoSpawnIntervalMin: 0.01
+  ammoSpawnIntervalMax: 0
   isAmmoTrail: 0
   ammoTrailTime: 0
   ammoTrailMaterial: {fileID: 0}
